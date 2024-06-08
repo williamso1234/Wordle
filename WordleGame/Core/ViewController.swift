@@ -66,7 +66,6 @@ class ViewController: UIViewController {
 
 extension ViewController: KeyboardViewControllerDelegate {
     func keyboardViewController(_ vc: KeyboardViewController, didTapKey letter: Character) {
-        // update guesses
         var stop = false
         
         for i in 0..<guesses.count {
@@ -82,6 +81,18 @@ extension ViewController: KeyboardViewControllerDelegate {
             }
         }
         boardVC.reloadData()
+    }
+
+    func keyboardViewControllerDidTapBackspace(_ vc: KeyboardViewController) {
+        for i in (0..<guesses.count).reversed() {
+            for j in (0..<guesses[i].count).reversed() {
+                if guesses[i][j] != nil {
+                    guesses[i][j] = nil
+                    boardVC.reloadData()
+                    return
+                }
+            }
+        }
     }
 }
 
